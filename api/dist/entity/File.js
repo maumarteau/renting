@@ -25,7 +25,6 @@ exports.deleteFile = exports.File = void 0;
 const typeorm_1 = require("typeorm");
 const fs_1 = __importDefault(require("fs"));
 const CarCategory_1 = require("./CarCategory");
-var ip = require("ip");
 let File = class File extends typeorm_1.BaseEntity {
     afterLoad() {
         return __awaiter(this, void 0, void 0, function* () {

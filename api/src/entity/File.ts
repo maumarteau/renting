@@ -2,7 +2,6 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 import fs from "fs"
 import { CarCategory } from "./CarCategory"
 
-var ip = require("ip")
 @Entity()
 export class File extends BaseEntity {
 	@PrimaryGeneratedColumn("uuid")

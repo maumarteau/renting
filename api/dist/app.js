@@ -14,10 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 const express_1 = __importDefault(require("express"));
-const morgan_1 = __importDefault(require("morgan"));
 const apollo_server_express_1 = require("apollo-server-express");
 const http_1 = __importDefault(require("http"));
-const moesif = require("moesif-nodejs");
 const typeDefs_1 = __importDefault(require("./resolvers/typeDefs"));
 const resolvers_1 = __importDefault(require("./resolvers/resolvers"));
 const PORT = process.env.PORT || "3000";
@@ -33,16 +31,8 @@ const server = new apollo_server_express_1.ApolloServer({
 });
 app.use(express_1.default.json({ limit: "50mb" }));
 app.use(express_1.default.urlencoded({ limit: "50mb" }));
-app.use(morgan_1.default("dev"));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
-const moesifMiddleware = moesif({
-    applicationId: "eyJhcHAiOiIzNjU6MzA0IiwidmVyIjoiMi4wIiwib3JnIjoiNjkwOjIxOCIsImlhdCI6MTYxNzIzNTIwMH0.ywtILvlHKWkufOCntRpUyRhwtlkIcv1AIg2HGEvqrpg",
-    identifyUser: function (req, res) {
-        return req.user ? req.user.id : undefined;
-    }
-});
-app.use(moesifMiddleware);
 const moment_1 = __importDefault(require("moment"));
 moment_1.default.locale("es");
 require("dotenv").config();
