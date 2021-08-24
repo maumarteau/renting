@@ -1,0 +1,42 @@
+extend type Query {
+	users(take: Int, skip: Int, search: String, status: String): UserConnection
+	user(id: ID!): User
+	userLogged: User
+}
+
+extend type Mutation {
+	userCreate(data: UserInput!): User!
+	userUpdate(id: ID!, data: UserInput!): User!
+	userDelete(id: ID!): User!
+	userLogin(email: String!, password: String!, accessTo: String): AuthPayload!
+}
+
+type AuthPayload {
+	token: String!
+	user: User!
+}
+
+type User {
+	id: ID!
+	name: String!
+	lastname: String
+	email: String!
+	avatar: File
+	deletedAt: DateTime
+	permissions: Object
+}
+
+input UserInput {
+	avatar: ID
+	name: String
+	lastname: String
+	email: String
+	password: String
+	passwordConfirm: String
+	permissions: Object
+}
+
+type UserConnection {
+	pageInfo: PageInfo
+	data: [User]
+}

@@ -1,0 +1,12 @@
+RewriteEngine On
+
+  RewriteCond %{HTTP_HOST} ^lestido-renting-admin.herokuapp.com [NC]
+  RewriteCond %{SERVER_PORT} 80
+  RewriteRule ^(.*)$ https://lestido-renting-admin.herokuapp.com/$1 [R,L]
+
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+  

@@ -1,0 +1,40 @@
+{
+  "name": "lestido-renting",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "deploy": "npm run build && cd ./dist && git init && heroku git:remote -a lestido-renting && git status && git add . && git commit -m 'deploy' && git push heroku master -f"
+  },
+  "dependencies": {
+    "@braid/vue-formulate": "^2.5.2",
+    "apollo-boost": "0.4.7",
+    "apollo-upload-client": "12.1.0",
+    "bootstrap": "^4.4.1",
+    "bootstrap-vue": "^2.21.2",
+    "core-js": "^3.6.5",
+    "express-sslify": "^1.2.0",
+    "v-click-outside": "^3.1.2",
+    "vue": "2.6.11",
+    "vue-apollo": "3.0.3",
+    "vue-loading-skeleton": "^1.1.9",
+    "vue-meta": "^2.4.0",
+    "vue-parallaxy": "^1.1.1",
+    "vue-router": "^3.5.1",
+    "vue-slick-carousel": "^1.0.6",
+    "vue-tel-input": "^4.3.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "4.2.0",
+    "@vue/cli-plugin-router": "4.2.0",
+    "@vue/cli-plugin-vuex": "4.2.0",
+    "@vue/cli-service": "4.2.0",
+    "graphql-tag": "2.9.0",
+    "node-sass": "4.14.0",
+    "sass-loader": "8.0.2",
+    "vue-cli-plugin-apollo": "0.21.3",
+    "vue-template-compiler": "2.6.11",
+    "rimraf": "^3.0.2"
+  }
+}

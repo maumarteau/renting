@@ -1,0 +1,40 @@
+extend type Query {
+	bookingMaintenances(
+		skip: Int
+		take: Int
+		conversationCode: String
+		clientId: ID
+	): BookingMaintenanceConnection
+	bookingMaintenance(id: ID): BookingMaintenance 
+}
+extend type Mutation {
+	bookingMaintenanceCreate(data: BookingMaintenanceInput!, publicKey: String): BookingMaintenance!
+}
+extend type Subscription {
+	bookingMaintenanceAnswered(conversationCode: String): BookingMaintenance
+}
+
+type BookingMaintenance {
+	id: ID!
+	car: String
+	mat: String
+	name: String
+	email: String
+	phone: String
+	department: String
+	createdAt: DateTime
+}
+
+input BookingMaintenanceInput {
+	car: String
+	mat: String
+	name: String
+	email: String
+	phone: String
+	department: String
+}
+
+type BookingMaintenanceConnection {
+	pageInfo: PageInfo
+	data: [BookingMaintenance]
+}

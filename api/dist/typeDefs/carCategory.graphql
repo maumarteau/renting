@@ -1,0 +1,92 @@
+extend type Query {
+  carCategories(
+    take: Int,
+    skip: Int,
+    search:String,
+    status:String,
+    featured:Boolean,
+    publicKey: String
+  ): CarCategoryConnection
+  carCategory(id: ID, slug:String): CarCategory 
+  carCategoryCheckSlug(slug: String): CarCategory
+}
+
+extend type Mutation {
+  carCategoryCreate( data: CarCategoryInput!): CarCategory!
+  carCategoryUpdate( id: ID!, data: CarCategoryInput!): CarCategory!
+  carCategoryDelete( id: ID! ): CarCategory!
+  carCategoryToggleStatus(id: ID!, status: String!): CarCategory!
+  carCategorySort( list: [OrderList] ): Boolean
+}
+
+type CarCategory {
+  id: ID!
+  slug: String 
+  name: String 
+  similary: String
+  featuredDetail: String
+  detailTitle: String
+  intro: String
+  detail: String
+  image: File
+  imageMain: File
+  dataSheet: File
+  gallery: [File]
+  images: [CarCategoryImage]
+  propAirConditioner: Boolean
+  propPassengers: Int
+  propDoors: Int
+  propLuggages: Int
+  propHandLuggages: Int
+  propTransmission: String
+  propFuel: String     
+  price: Float
+  conditions: String  
+  featured: Boolean
+  order: Int
+  status:String
+  statusText:String
+  statusClass:String
+}
+
+
+input CarCategoryInput {
+  slug: String
+	name: String!
+	featuredDetail: String
+	detailTitle: String
+	intro: String
+	detail: String
+	image: ID!
+	imageMain: ID!
+	dataSheet: ID
+  gallery: [ID]
+  images: [CarCategoryImageInput]
+  price: Float
+  featured: Boolean
+  propAirConditioner: Boolean
+  propPassengers: Int
+  propDoors: Int
+  propLuggages: Int
+  propHandLuggages: Int
+  propTransmission: String
+  propFuel: String     
+  status: String     
+}
+
+type CarCategoryConnection {
+    pageInfo: PageInfo
+    data: [CarCategory]
+}
+
+type CarCategoryImage {
+  id: ID!
+  title: String 
+  body: String
+  image: File
+}
+input CarCategoryImageInput{
+  title: String 
+  body: String
+  image: ID
+}

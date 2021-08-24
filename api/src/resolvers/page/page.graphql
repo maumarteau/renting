@@ -1,0 +1,45 @@
+extend type Query {
+  pages(
+    take: Int,
+    skip: Int,
+    search:String,
+    status:String,
+    featured:Boolean,
+    publicKey: String
+  ): PageConnection
+  page(id: ID, publicKey: String, slug: String): Page 
+  pageCheckSlug(slug: String): Page 
+}
+
+extend type Mutation {
+  pageCreate( data: PageInput!): Page!
+  pageUpdate( id: ID!, data: PageInput!): Page!
+  pageDelete( id: ID! ): Page!
+}
+
+type Page {
+  id: ID!
+  featured: Boolean
+  title: String!
+  intro: String
+  body: String
+  link: String
+  hasBody: Boolean
+  slug: String!
+  image: File
+}
+
+input PageInput {
+	slug: String!
+	title: String!
+  intro: String
+  link: String
+  featured: Boolean
+	body: String
+	image: ID
+}
+
+type PageConnection {
+    pageInfo: PageInfo
+    data: [Page]
+}

@@ -1,0 +1,39 @@
+extend type Query {
+	messages(
+		skip: Int
+		take: Int
+		conversationCode: String
+		clientId: ID
+	): MessageConnection
+}
+extend type Mutation {
+	messageCreate(data: MessageInput!, publicKey: String): Message!
+	messageReaded(id: ID! ): Message!
+}
+extend type Subscription {
+	messageAnswered(conversationCode: String): Message
+}
+
+type Message {
+	id: ID!
+	subject: String
+	name: String
+	email: String
+	phone: String
+	message: String
+	readed: Boolean
+	createdAt: DateTime
+}
+
+input MessageInput {
+	subject: String
+	name: String
+	email: String
+	phone: String
+	message: String
+}
+
+type MessageConnection {
+	pageInfo: PageInfo
+	data: [Message]
+}

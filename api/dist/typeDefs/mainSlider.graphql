@@ -1,0 +1,37 @@
+extend type Query {
+  mainSliders(
+    take: Int,
+    skip: Int,
+    search:String,
+    status:String,
+    publicKey: String
+  ): MainSliderConnection
+  mainSlider(id: ID!): MainSlider 
+}
+
+extend type Mutation {
+  mainSliderCreate( data: MainSliderInput!): MainSlider!
+  mainSliderUpdate( id: ID!, data: MainSliderInput!): MainSlider!
+  mainSliderDelete( id: ID! ): MainSlider!
+}
+
+type MainSlider {
+  id: ID!
+  title: String!
+  formattedTitle: String
+  description: String
+  link: String
+  image: File!
+}
+
+input MainSliderInput {
+	title: String!
+  description: String
+	link: String
+	image: ID!
+}
+
+type MainSliderConnection {
+    pageInfo: PageInfo
+    data: [MainSlider]
+}
