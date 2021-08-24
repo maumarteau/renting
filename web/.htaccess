@@ -1,3 +1,5 @@
 RewriteEngine on
-RewriteCond %{REQUEST_URI} !^/web/
-RewriteRule ^(.*)$ /web/$1 [QSA]
+
+# PARA QUE EL PUBLIC CARGUE LA WEB QUE ESTA EN /web/
+RewriteRule ^(.*)$ web/ [L]
+
