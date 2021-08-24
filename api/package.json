@@ -1,8 +1,7 @@
 {
   "name": "lestido-api",
   "scripts": {
-    "build": "rimraf rmdir ./dist && tsc && copyfiles ./src/resolvers/**/*.graphql ./dist/typeDefs/ -f && shx cp package.production.json dist/package.json",
-    "build:heroku": "npm run build && shx cp .env.heroku dist/.env && shx cp mydb.sql dist/mydb.sql && shx cp ecosystem.config.js dist/ecosystem.config.js",
+    "build": "rimraf rmdir ./dist && tsc && copyfiles ./src/resolvers/**/*.graphql ./dist/typeDefs/ -f ",
     "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
     "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
     "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
