@@ -48,7 +48,8 @@ import { createConnection, getConnectionOptions } from "typeorm"
 
 import { patchSelectQueryBuilder } from "typeorm-global-scopes"
 
-;(async function () {
+;import { emailCheckConnection } from "./utils/email"
+(async function () {
 	console.log("Connecting...")
 	patchSelectQueryBuilder()
 	let connectionOptions = await getConnectionOptions()
@@ -68,6 +69,10 @@ app.get("/", function (req: any, res: any) {
 })
 app.get("/test", function (req: any, res: any) {
 	res.send("Working OK.")
+})
+app.get("/check-email-connection", async function (req: any, res: any) {
+	const isOk = await emailCheckConnection()
+	res.send(isOk)
 })
 
 

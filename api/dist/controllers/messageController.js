@@ -11,10 +11,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.messageReaded = exports.messageCreate = void 0;
 const Message_1 = require("../entity/Message");
+const email_1 = require("../utils/email");
 function messageCreate(data, ctx) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("messageCreate", data);
         const item = yield Message_1.Message.create(data).save();
+        const message = `
+	Nombre: ${item.name} <br>
+	Email: ${item.email}<br>
+	Tel: ${item.phone}<br>
+	${item.message}`;
+        if (item.subject == 'Agenda mantenimiento') {
+            email_1.emailSend("service@renting.com.uy", item.subject, message);
+        }
+        else {
+            email_1.emailSend("consultas@renting.com.uy", item.subject, message);
+        }
         return item;
     });
 }

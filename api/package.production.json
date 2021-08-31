@@ -1,17 +1,10 @@
 {
-  "name": "lestido-api",
+  "name": "renting-api",
   "scripts": {
-    "build": "rimraf rmdir ./dist && tsc && copyfiles ./src/resolvers/**/*.graphql ./dist/typeDefs/ -f && shx cp package.production.json dist/package.json",
-    "build:heroku": "npm run build && shx cp .env.heroku dist/.env && shx cp mydb.sql dist/mydb.sql && shx cp ecosystem.config.js dist/ecosystem.config.js",
-    "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
-    "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
-    "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
-    "stage": "env-cmd -f ./.env.stagging npm run dev",
-    "deploy": "npm run build:heroku && cd ./dist && git init && heroku git:remote -a lestido-api && git add . && git commit -m 'deploy' && git push heroku master -f",
-    "preinstall": "npx npm-force-resolutions"
+    "start": "node index.js"
   },
-  "resolutions": {
-    "graphql-upload": "^11.0.0"
+  "engines": {
+    "node": "12.16.1"
   },
   "dependencies": {
     "@google-cloud/dialogflow": "^3.5.0",
@@ -59,6 +52,8 @@
     "sqlite3": "^5.0.2",
     "twilio": "^3.60.0",
     "type-graphql": "^1.1.1",
+    "typeorm": "^0.2.32",
+    "typeorm-global-scopes": "^0.2.3",
     "utf8": "^3.0.0"
   },
   "devDependencies": {
@@ -86,11 +81,11 @@
     "dotenv": "^8.2.0",
     "env-cmd": "^10.1.0",
     "nodemon": "2.0.4",
+    "rimraf": "^3.0.2",
     "shx": "^0.3.3",
     "ts-node": "^8.10.2",
     "tsc-watch": "^4.2.9",
-    "typeorm": "^0.2.32",
-    "typeorm-global-scopes": "^0.2.3",
+   
     "typeorm-seeding": "^1.6.1",
     "typescript": "^4.2.4"
   }

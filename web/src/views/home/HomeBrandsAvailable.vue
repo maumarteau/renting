@@ -14,7 +14,7 @@
 		</div>
 
 		<div class="row row-xs mt-4">
-			<div class="col-6">
+			<div class="col-12 col-md-6 mb-2">
 				<a href="http://www.audi.com.uy?ref=lestido-renting" target="_blank" class="brand-block hover-effect">
 					<div class="logo hover-effect">
 						<img src="@/assets/img/audi-logo.png" alt="" class="img-fluid mr-5" />
@@ -23,7 +23,7 @@
 					<img src="@/assets/img/brands-models-1.jpg" alt="" class="img-fluid" />
 				</a>
 			</div>
-			<div class="col-6">
+			<div class="col-12 col-md-6 mb-2">
 				<a href="http://www.volkswagen.com.uy?ref=lestido-renting" target="_blank" class="brand-block hover-effect">
 					<div class="logo hover-effect">
 						<img src="@/assets/img/volkswagen-logo.png" alt="" class="img-fluid mr-4" />
@@ -42,8 +42,7 @@
 	text-align: center;
 }
 .brand-block .logo {
-	width: 300px;
-	/* color: #fff; */
+	width: 100%;
 	color: #000;
 	position: absolute;
 	top: 12px;
@@ -51,12 +50,19 @@
 	background-size: cover;
 	align-items: center;
 	display: flex;
-	/* text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5); */
 }
 .brand-block .logo img {
 	filter: brightness(0) invert(0);
-	width: 130px;
+	width: 90px;
 }
 @media (min-width: 991px) {
+	.brand-block .logo {
+		width: 300px;
+		top: 12px;
+		left: 12px;
+	}
+	.brand-block .logo img {
+		width: 130px;
+	}
 }
 </style>

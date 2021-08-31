@@ -38,6 +38,7 @@ moment_1.default.locale("es");
 require("dotenv").config();
 const typeorm_1 = require("typeorm");
 const typeorm_global_scopes_1 = require("typeorm-global-scopes");
+const email_1 = require("./utils/email");
 (function () {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("Connecting...");
@@ -59,6 +60,12 @@ app.get("/", function (req, res) {
 });
 app.get("/test", function (req, res) {
     res.send("Working OK.");
+});
+app.get("/check-email-connection", function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const isOk = yield email_1.emailCheckConnection();
+        res.send(isOk);
+    });
 });
 function startApolloServer() {
     return __awaiter(this, void 0, void 0, function* () {

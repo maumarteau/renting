@@ -1,5 +1,6 @@
 import { Message} from "../entity/Message"
 import { findOne } from "../utils"
+import { emailSend } from "../utils/email"
 
 /****************************************************************************************/
 /******************************************* CREATE *************************************/
@@ -10,6 +11,19 @@ export async function messageCreate(data: Partial<Message>, ctx?: any): Promise<
 
 	const item: Message = await Message.create(data).save()
 	
+	const message = `
+	Nombre: ${item.name} <br>
+	Email: ${item.email}<br>
+	Tel: ${item.phone}<br>
+	${item.message}`
+
+	if(item.subject == 'Agenda mantenimiento'){
+		emailSend("service@renting.com.uy", item.subject, message)
+
+	}else{
+		emailSend("consultas@renting.com.uy", item.subject, message)
+	}
+
 	return item
 }
 
