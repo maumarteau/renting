@@ -1,18 +1,10 @@
 <template>
 	<Layout :loading="loading || saving" :pageTitle="title">
 		<template #cta>
-			<b-dropdown
-				no-caret
-				right
-				class="dropdown-dots"
-				v-if="action == 'update' && form"
-			>
-				<template v-slot:button-content
-					><i class="icon icon-dot-3"></i
-				></template>
+			<b-dropdown no-caret right class="dropdown-dots" v-if="action == 'update' && form">
+				<template v-slot:button-content><i class="icon icon-dot-3"></i></template>
 				<b-dropdown-item @click="deletePrompt(form)" class="delete-item"
-					><i class="icon icon-trashcan"></i>
-					Eliminar</b-dropdown-item
+					><i class="icon icon-trashcan"></i> Eliminar</b-dropdown-item
 				>
 			</b-dropdown>
 
@@ -49,13 +41,7 @@
 			</div> -->
 		</template>
 
-		<FormulateForm
-			v-model="form"
-			name="form"
-			ref="formCategory"
-			style="max-width:100%"
-			@submit="save"
-		>
+		<FormulateForm v-model="form" name="form" ref="formCategory" style="max-width:100%" @submit="save">
 			<div class="main-container container" v-if="!loading">
 				<div class="row row-xs mt-4">
 					<div class="col-12 col-md-4">
@@ -70,9 +56,7 @@
 									:displayBlock="true"
 									validation-name="Imagen"
 									validation="required"
-									:help="
-										`La imagen debe ser de 591px x 422px con fondo transparente`
-									"
+									:help="`La imagen debe ser de 591px x 422px con fondo transparente`"
 								/>
 
 								<!-- <FormulateInput
@@ -91,20 +75,9 @@
 									}"
 								/> -->
 
-								<FormulateInput
-									label="Nombre"
-									name="name"
-									validation-name="Nombre"
-									validation="required"
-								/>
+								<FormulateInput label="Nombre" name="name" validation-name="Nombre" validation="required" />
 
-								<FormulateInput
-									label="Intro"
-									name="intro"
-									validation-name="Intro"
-									validation="required"
-									type="textarea"
-								/>
+								<FormulateInput label="Intro" name="intro" validation-name="Intro" validation="required" type="textarea" />
 
 								<FormulateInput
 									label="Estado"
@@ -135,9 +108,7 @@
 													:displayBlock="true"
 													validation-name="Imagen"
 													validation="required"
-													:help="
-														`La imagen debe ser de 1400px x 640px`
-													"
+													:help="`La imagen debe ser de 1400px x 640px`"
 												/>
 											</div>
 
@@ -301,11 +272,7 @@
 												type="price"
 												name="price"
 												validation-name="Precio"
-												:validation="
-													form.featured
-														? 'required'
-														: null
-												"
+												:validation="form.featured ? 'required' : null"
 											/>
 
 											<FormulateInput
@@ -339,26 +306,10 @@
 								</b-tabs>
 
 								<hr />
-								<div
-									class="d-flex justify-content-between mt-4"
-								>
-									<FormulateInput
-										type="button"
-										data-ghost
-										@click="$router.go(-1)"
-										>Cancelar</FormulateInput
-									>
-									<FormulateInput
-										type="button"
-										disabled
-										v-if="saving"
-										>Guardando <span class="loader"
-									/></FormulateInput>
-									<FormulateInput
-										type="submit"
-										:label="title"
-										v-else
-									/>
+								<div class="d-flex justify-content-between mt-4">
+									<FormulateInput type="button" data-ghost @click="$router.go(-1)">Cancelar</FormulateInput>
+									<FormulateInput type="button" disabled v-if="saving">Guardando <span class="loader"/></FormulateInput>
+									<FormulateInput type="submit" :label="title" v-else />
 								</div>
 							</div>
 						</div>
@@ -390,6 +341,7 @@ export default {
 				image: null,
 				imageMain: null,
 				images: [],
+				gallery: [],
 				dataSheet: null,
 				slug: null,
 				name: null,
@@ -469,10 +421,7 @@ export default {
 							}
 					  })
 					: [],
-				gallery:
-					this.form.gallery.length > 0
-						? this.form.gallery.map((i) => (i ? i.id : null))
-						: [],
+				gallery: this.form.gallery.length > 0 ? this.form.gallery.map((i) => (i ? i.id : null)) : [],
 			}
 
 			if (this.action == 'create') {
