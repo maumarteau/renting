@@ -1,11 +1,5 @@
 {
   "name": "renting-api",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "engines": {
-    "node": "12.16.1"
-  },
   "dependencies": {
     "@google-cloud/dialogflow": "^3.5.0",
     "actions-on-google": "^2.13.0",
