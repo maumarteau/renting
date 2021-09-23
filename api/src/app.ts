@@ -1,9 +1,7 @@
 import "reflect-metadata"
 import express from "express"
 import { ApolloServer, PubSub } from "apollo-server-express"
-
 import http from "http"
-// const moesif = require("moesif-nodejs")
 
 import typeDefs from "./resolvers/typeDefs"
 import resolvers from "./resolvers/resolvers"
@@ -31,13 +29,6 @@ app.use(express.urlencoded({ limit: "50mb" }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// const moesifMiddleware = moesif({
-// 	applicationId: "eyJhcHAiOiIzNjU6MzA0IiwidmVyIjoiMi4wIiwib3JnIjoiNjkwOjIxOCIsImlhdCI6MTYxNzIzNTIwMH0.ywtILvlHKWkufOCntRpUyRhwtlkIcv1AIg2HGEvqrpg",
-// 	identifyUser: function (req: any, res: any) {
-// 		return req.user ? req.user.id : undefined
-// 	}
-// })
-// app.use(moesifMiddleware)
 
 import moment from "moment"
 moment.locale("es")
