@@ -5,5 +5,5 @@ deployment:
     - /bin/rsync -av web/dist/ $DEPLOYWEB
     - export DEPLOYADMIN=/home/rentingcom/public_html/admin/
     - /bin/rsync -av admin/dist/ $DEPLOYADMIN
-    - export DEPLOYAPI=/home/rentingcom/public_html/api/
+    - export DEPLOYAPI=/home/rentingcom/api/
     - /bin/rsync -av api/dist/ $DEPLOYAPI

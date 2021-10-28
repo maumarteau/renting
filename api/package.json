@@ -3,11 +3,10 @@
   "scripts": {
     "build": "rimraf rmdir ./dist && tsc && copyfiles ./src/resolvers/**/*.graphql ./dist/typeDefs/ -f && shx cp package.production.json dist/package.json",
     "build:heroku": "npm run build && shx cp .env.heroku dist/.env &&  shx cp ecosystem.config.js dist/ecosystem.config.js",
-    "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
+    "dev": "tsc-watch --onSuccess \"node dist/server.js\"",
     "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
     "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
     "stage": "env-cmd -f ./.env.stagging npm run dev",
-    "deploy": "npm run build:heroku && cd ./dist && git init && heroku git:remote -a lestido-api && git add . && git commit -m 'deploy' && git push heroku master -f",
     "preinstall": "npx npm-force-resolutions"
   },
   "resolutions": {
