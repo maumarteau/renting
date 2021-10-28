@@ -9,7 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const apollo_server_1 = require("apollo-server");
 const messageController_1 = require("../../controllers/messageController");
 const Message_1 = require("../../entity/Message");
 const utils_1 = require("../../utils");
@@ -31,16 +30,8 @@ const Mutation = {
         return result;
     })
 };
-const Subscription = {
-    messageAnswered: {
-        subscribe: apollo_server_1.withFilter((_, __, { pubsub }) => pubsub.asyncIterator("messageAnswered"), (payload, variables) => {
-            return payload.messageAnswered.conversationCode == variables.conversationCode;
-        })
-    }
-};
 exports.default = {
     Message,
     Query,
     Mutation,
-    Subscription
 };

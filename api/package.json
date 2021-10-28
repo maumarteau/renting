@@ -1,23 +1,21 @@
 {
   "name": "lestido-api",
   "scripts": {
-    "build": "rimraf rmdir ./dist && tsc && copyfiles ./src/resolvers/**/*.graphql ./dist/typeDefs/ -f && shx cp package.json dist/package.json",
+    "build": "rimraf rmdir ./dist && tsc && copyfiles ./src/resolvers/**/*.graphql ./dist/typeDefs/ -f && shx cp package.production.json dist/package.json",
     "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
     "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
     "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
-    "stage": "env-cmd -f ./.env.stagging npm run dev",
-    "preinstall": "npx npm-force-resolutions"
+    "stage": "env-cmd -f ./.env.stagging npm run dev"
   },
   "dependencies": {
-    "apollo-server": "^2.23.0",
+    "@graphql-tools/load-files": "^6.5.1",
+    "@graphql-tools/merge": "^8.1.2",
     "apollo-server-express": "^2.23.0",
     "aws-sdk": "^2.880.0",
     "axios": "^0.21.0",
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "graphql": "^15.5.0",
-    "graphql-tools": "^6.0.12",
-    "graphql-yoga": "1.18.3",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.32",
@@ -35,7 +33,6 @@
     "@types/node": "^14.0.20",
     "@types/node-fetch": "^2.5.7",
     "@types/request": "^2.48.7",
-    "cp": "^0.2.0",
     "dotenv": "^8.2.0",
     "env-cmd": "^10.1.0",
     "rimraf": "^3.0.2",

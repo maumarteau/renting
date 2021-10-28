@@ -1,4 +1,4 @@
-import { withFilter } from "apollo-server"
+// import { withFilter } from "apollo-server"
 import { messageCreate, messageReaded } from "../../controllers/messageController"
 import { Message as MessageEntity } from "../../entity/Message"
 import { createListQuery } from "../../utils"
@@ -27,20 +27,20 @@ const Mutation = {
 	}
 }
 
-const Subscription = {
-	messageAnswered: {
-		subscribe: withFilter(
-			(_: any, __: any, { pubsub }: any) => pubsub.asyncIterator("messageAnswered"),
-			(payload: any, variables: any) => {
-				return payload.messageAnswered.conversationCode == variables.conversationCode
-			}
-		)
-	}
-}
+// const Subscription = {
+// 	messageAnswered: {
+// 		subscribe: withFilter(
+// 			(_: any, __: any, { pubsub }: any) => pubsub.asyncIterator("messageAnswered"),
+// 			(payload: any, variables: any) => {
+// 				return payload.messageAnswered.conversationCode == variables.conversationCode
+// 			}
+// 		)
+// 	}
+// }
 
 export default {
 	Message,
 	Query,
 	Mutation,
-	Subscription
+	// Subscription
 }

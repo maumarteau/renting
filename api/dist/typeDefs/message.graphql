@@ -10,9 +10,9 @@ extend type Mutation {
 	messageCreate(data: MessageInput!, publicKey: String): Message!
 	messageReaded(id: ID! ): Message!
 }
-extend type Subscription {
-	messageAnswered(conversationCode: String): Message
-}
+# extend type Subscription {
+# 	messageAnswered(conversationCode: String): Message
+# }
 
 type Message {
 	id: ID!
