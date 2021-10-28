@@ -5,5 +5,5 @@ RewriteCond %{HTTPS} !on
 RewriteRule (.*) https://www.renting.com.uy%{REQUEST_URI} [L,R=301]
 
 # PARA QUE EL PUBLIC CARGUE LA WEB QUE ESTA EN /web/
-RewriteRule ^(.*)$ web/ [L]
+#RewriteRule ^(.*)$ web/ [L]
 
