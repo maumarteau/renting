@@ -1,0 +1,2 @@
+INSERT INTO car_category_image (id,title,body,createdAt,updatedAt,deletedAt,carCategoryId,imageId) VALUES
+	 ('518c598e-8701-4c2e-9515-6bc4668e8535','Una primera impresión… ¡Impresionante!','La nueva puerta deslizante m&aacute;s ancha y las inteligentes soluciones para el port&oacute;n trasero te permiten realizar una carga c&oacute;moda y sencilla en todo tipo de situaciones.','2021-07-26 18:56:18.991898000','2021-07-26 18:56:18.991898000',NULL,'09a50967-4e10-4f96-99f6-863281e8d97a',NULL);
