@@ -21,11 +21,11 @@ function messageCreate(data, ctx) {
 	Email: ${item.email}<br>
 	Tel: ${item.phone}<br>
 	${item.message}`;
-        if (item.subject == 'Agenda mantenimiento') {
+        if (item.subject == "Agenda mantenimiento") {
             email_1.emailSend("service@renting.com.uy", item.subject, message);
         }
         else {
-            email_1.emailSend("consultas@renting.com.uy", item.subject, message);
+            email_1.emailSend("mauricemarteau.web@gmail.com", item.subject, message);
         }
         return item;
     });
