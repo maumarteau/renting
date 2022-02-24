@@ -2,12 +2,12 @@ const nodemailer = require("nodemailer")
 
 export async function emailCheckConnection() {
 	let connection: any = {
-		host: process.env.EMAIL_HOST || "smtp.gmail.com",
-		port: process.env.EMAIL_PORT || 465,
-		secure: process.env.EMAIL_SECURE || true,
+		host: "smtp.gmail.com",
+		port: 465,
+		secure: true,
 		auth: {
-			user: process.env.EMAIL_USER || "webrentinglest@gmail.com",
-			pass: process.env.EMAIL_PASS || "Lestido.2021."
+			user: "webrentinglest@gmail.com",
+			pass: "Lestido.2021."
 		}
 	}
 
