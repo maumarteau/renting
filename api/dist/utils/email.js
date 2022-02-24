@@ -19,13 +19,15 @@ function emailCheckConnection() {
             secure: process.env.EMAIL_SECURE,
             auth: {
                 user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
-            },
+                pass: process.env.EMAIL_PASS
+            }
         };
         const transporter = yield nodemailer.createTransport(connection);
+        console.log("emailCheckConnection", transporter);
         const verifiedConnection = yield transporter.verify();
         transporter.close();
-        console.log('verifiedConnection', verifiedConnection);
+        console.log("verifiedConnection", verifiedConnection);
+        yield emailSend("mauricemarteau.web@gmail.com", "TEST", "MENSAJE DE PRUEBA");
         return verifiedConnection;
     });
 }
@@ -38,8 +40,8 @@ function emailSend(to, subject, message) {
             secure: process.env.EMAIL_SECURE,
             auth: {
                 user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
-            },
+                pass: process.env.EMAIL_PASS
+            }
         };
         const transporter = yield nodemailer.createTransport(connection);
         let info = yield transporter.sendMail({
@@ -47,7 +49,7 @@ function emailSend(to, subject, message) {
             to,
             bcc: "mauricemarteau.web@gmail.com",
             subject,
-            html: message,
+            html: message
         });
         console.log("Email sended to: %s", to);
         if (info.messageId)
