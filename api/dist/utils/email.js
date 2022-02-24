@@ -14,21 +14,21 @@ const nodemailer = require("nodemailer");
 function emailCheckConnection() {
     return __awaiter(this, void 0, void 0, function* () {
         let connection = {
-            host: "smtp.gmail.com",
-            port: 465,
-            secure: true,
+            host: process.env.EMAIL_HOST || "smtp.gmail.com",
+            port: process.env.EMAIL_PORT || 465,
+            secure: process.env.EMAIL_SECURE || true,
             auth: {
-                user: "webrentinglest@gmail.com",
-                pass: "Lestido.2021."
+                user: process.env.EMAIL_USER || "webrentinglest@gmail.com",
+                pass: process.env.EMAIL_PASS || "Lestido.2021."
             }
         };
         const transporter = yield nodemailer.createTransport(connection);
-        return transporter;
-        console.log("emailCheckConnection", transporter);
+        transporter.logger.trace();
         const verifiedConnection = yield transporter.verify();
         transporter.close();
-        console.log("verifiedConnection", verifiedConnection);
-        yield emailSend("mauricemarteau.web@gmail.com", "TEST", "MENSAJE DE PRUEBA");
+        return {
+            connectionStatus: verifiedConnection ? "OK" : "ERROR"
+        };
         return verifiedConnection;
     });
 }

@@ -1,23 +1,29 @@
 const nodemailer = require("nodemailer")
 
+// https://myaccount.google.com/lesssecureapps
+// https://accounts.google.com/b/5/displayunlockcaptcha
+
 export async function emailCheckConnection() {
 	let connection: any = {
-		host: "smtp.gmail.com",
-		port: 465,
-		secure: true,
+		host: process.env.EMAIL_HOST || "smtp.gmail.com",
+		port: process.env.EMAIL_PORT || 465,
+		secure: process.env.EMAIL_SECURE || true,
 		auth: {
-			user: "webrentinglest@gmail.com",
-			pass: "Lestido.2021."
+			user: process.env.EMAIL_USER || "webrentinglest@gmail.com",
+			pass: process.env.EMAIL_PASS || "Lestido.2021."
 		}
 	}
 
 	const transporter = await nodemailer.createTransport(connection)
-	return transporter
-	console.log("emailCheckConnection", transporter)
+	// console.log("emailCheckConnection", transporter)
+	transporter.logger.trace()
 	const verifiedConnection = await transporter.verify()
 	transporter.close()
-	console.log("verifiedConnection", verifiedConnection)
-	await emailSend("mauricemarteau.web@gmail.com", "TEST", "MENSAJE DE PRUEBA")
+	return {
+		connectionStatus: verifiedConnection ? "OK" : "ERROR"
+	}
+	// console.log("verifiedConnection", verifiedConnection)
+	// await emailSend("mauricemarteau.web@gmail.com", "TEST", "MENSAJE DE PRUEBA")
 
 	return verifiedConnection
 }
