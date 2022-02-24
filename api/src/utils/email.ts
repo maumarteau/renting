@@ -2,12 +2,12 @@ const nodemailer = require("nodemailer")
 
 export async function emailCheckConnection() {
 	let connection: any = {
-		host: process.env.EMAIL_HOST,
-		port: process.env.EMAIL_PORT,
-		secure: process.env.EMAIL_SECURE, // true for 465, false for other ports
+		host: process.env.EMAIL_HOST || "smtp.gmail.com",
+		port: process.env.EMAIL_PORT || 465,
+		secure: process.env.EMAIL_SECURE || true,
 		auth: {
-			user: process.env.EMAIL_USER,
-			pass: process.env.EMAIL_PASS
+			user: process.env.EMAIL_USER || "webrentinglest@gmail.com",
+			pass: process.env.EMAIL_PASS || "Lestido.2021."
 		}
 	}
 
@@ -23,12 +23,12 @@ export async function emailCheckConnection() {
 
 export async function emailSend(to: string, subject: string, message: string): Promise<boolean> {
 	let connection: any = {
-		host: process.env.EMAIL_HOST,
-		port: process.env.EMAIL_PORT,
-		secure: process.env.EMAIL_SECURE, // true for 465, false for other ports
+		host: process.env.EMAIL_HOST || "smtp.gmail.com",
+		port: process.env.EMAIL_PORT || 465,
+		secure: process.env.EMAIL_SECURE || true,
 		auth: {
-			user: process.env.EMAIL_USER,
-			pass: process.env.EMAIL_PASS
+			user: process.env.EMAIL_USER || "webrentinglest@gmail.com",
+			pass: process.env.EMAIL_PASS || "Lestido.2021."
 		}
 	}
 	const transporter = await nodemailer.createTransport(connection)

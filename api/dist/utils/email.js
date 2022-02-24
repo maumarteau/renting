@@ -14,12 +14,12 @@ const nodemailer = require("nodemailer");
 function emailCheckConnection() {
     return __awaiter(this, void 0, void 0, function* () {
         let connection = {
-            host: process.env.EMAIL_HOST,
-            port: process.env.EMAIL_PORT,
-            secure: process.env.EMAIL_SECURE,
+            host: process.env.EMAIL_HOST || "smtp.gmail.com",
+            port: process.env.EMAIL_PORT || 465,
+            secure: process.env.EMAIL_SECURE || true,
             auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
+                user: process.env.EMAIL_USER || "webrentinglest@gmail.com",
+                pass: process.env.EMAIL_PASS || "Lestido.2021."
             }
         };
         const transporter = yield nodemailer.createTransport(connection);
@@ -35,12 +35,12 @@ exports.emailCheckConnection = emailCheckConnection;
 function emailSend(to, subject, message) {
     return __awaiter(this, void 0, void 0, function* () {
         let connection = {
-            host: process.env.EMAIL_HOST,
-            port: process.env.EMAIL_PORT,
-            secure: process.env.EMAIL_SECURE,
+            host: process.env.EMAIL_HOST || "smtp.gmail.com",
+            port: process.env.EMAIL_PORT || 465,
+            secure: process.env.EMAIL_SECURE || true,
             auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
+                user: process.env.EMAIL_USER || "webrentinglest@gmail.com",
+                pass: process.env.EMAIL_PASS || "Lestido.2021."
             }
         };
         const transporter = yield nodemailer.createTransport(connection);
