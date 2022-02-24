@@ -23,6 +23,7 @@ function emailCheckConnection() {
             }
         };
         const transporter = yield nodemailer.createTransport(connection);
+        return transporter;
         console.log("emailCheckConnection", transporter);
         const verifiedConnection = yield transporter.verify();
         transporter.close();

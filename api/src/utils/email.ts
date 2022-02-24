@@ -12,6 +12,7 @@ export async function emailCheckConnection() {
 	}
 
 	const transporter = await nodemailer.createTransport(connection)
+	return transporter
 	console.log("emailCheckConnection", transporter)
 	const verifiedConnection = await transporter.verify()
 	transporter.close()
