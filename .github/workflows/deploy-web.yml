@@ -54,9 +54,9 @@ jobs:
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.3.2
         with:
-          server: ftp.renting.com.uy
+          server: 207.244.226.174
           username: github@renting.uy
-          password: 86t7SB78sa7a
+          password: 86t7SB78sa7a123
           dangerous-clean-slate: true
           local-dir: web/dist/
           server-dir: /public_html/web2/
