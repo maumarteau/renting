@@ -8,12 +8,18 @@ LestidoRenting.2021.
 | Domain: renting.com.uy
 | Ip: 173.233.72.85 
 | UserName: rentingcom
-| PassWord: 34Husk*swef!s
+| PassWord: qa4etwz2295v
 | HomeRoot: /home
 | Quota: 9.77 GB
 | NameServer1: ns1.playuruguay.com
 | NameServer2: ns2.playuruguay.com
 
+
+
+
+FTP para github actions
+user: github@renting.uy
+password: 86t7SB78sa7a
 
 
 DEPLOY EN CPANEL

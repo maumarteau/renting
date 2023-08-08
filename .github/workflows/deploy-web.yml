@@ -1,0 +1,62 @@
+name: Deployment web Pipeline
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - web/**
+  pull_request:
+    branches: [master]
+    paths:
+      - web/**
+    types: [opened, synchronize]
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./web
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          cache-dependency-path: web/package-lock.json
+          node-version: '12'
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Build
+        run: npm run build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: web-build
+          path: web/dist
+
+  deploy:
+    needs: [build]
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./web
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@v2
+        with:
+          name: web-build
+          path: web/dist
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
+        with:
+          server: 143.110.212.167
+          username: github@renting.uy
+          password: 86t7SB78sa7a
+          dangerous-clean-slate: true
+          local-dir: web/dist/
+          server-dir: /public_html/web2/
