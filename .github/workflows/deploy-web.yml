@@ -59,4 +59,4 @@ jobs:
           password: 86t7SB78sa7a123
           dangerous-clean-slate: true
           local-dir: web/dist/
-          server-dir: /public_html/web2/
+          server-dir: /distributions/web2/
