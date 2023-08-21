@@ -23,12 +23,12 @@
 				</div>
 			</div>
 			<div class="col-12 col-md-6 mb-2">
-				<a href="http://www.volkswagen.com.uy?ref=lestido-renting" target="_blank" class="brand-block hover-effect">
+				<div class="brand-block hover-effect">
 					<div class="logo hover-effect">
 						<img src="@/assets/img/volkswagen-logo.png" alt="" class="img-fluid mr-4" />
 					</div>
 					<img src="@/assets/img/brands-models-2.jpg" alt="" class="img-fluid" />
-				</a>
+				</div>
 			</div>
 		</div>
 	</div>
