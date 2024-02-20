@@ -128,7 +128,7 @@ export default {
 .navbar .logo {
 	max-width: 112px;
 	width: 100%;
-	margin: 12px 12px;
+	margin: 6px 6px;
 }
 
 .nav-link {

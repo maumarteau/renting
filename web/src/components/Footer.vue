@@ -23,13 +23,13 @@
 									Contacto
 								</router-link>
 							</div>
-							<div class="col-12 col-md-4 col-lg-4  order-md-1 order-lg-2 mb-5">
+							<!-- <div class="col-12 col-md-4 col-lg-4  order-md-1 order-lg-2 mb-5">
 								<h4 class="footer-title">
 									Venta de unidades
 								</h4>
 								<a href="https://audicertificados.com.uy" target="_blank">Audi Usados Certificados</a><br />
 								<a href="https://www.vwseminuevos.com.uy" target="_blank">Volkswagen Semi Nuevos</a><br />
-							</div>
+							</div> -->
 						</div>
 					</div>
 
@@ -85,7 +85,7 @@ a {
 	color: #cfcfcf;
 }
 .logo {
-	max-width: 152px;
+	max-width: 122px;
 }
 .credits {
 }
