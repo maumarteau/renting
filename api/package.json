@@ -5,7 +5,7 @@
 		"dev": "tsc-watch --onSuccess \"node dist/index.js\"",
 		"seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
 		"seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
-		"stage": "env-cmd -f ./.env.stagging npm run dev"
+		"dev:stage": "env-cmd -f ./.env.stagging npm run dev"
 	},
 	"dependencies": {
 		"@graphql-tools/load-files": "^6.5.1",
