@@ -20,7 +20,7 @@ export async function messageCreate(data: Partial<Message>, ctx?: any): Promise<
 	if (item.subject == "Agenda mantenimiento") {
 		emailSend("service@renting.com.uy", item.subject, message)
 	} else {
-		// emailSend("mauricemarteau.web@gmail.com", item.subject, message)
+		emailSend("mauricemarteau.web@gmail.com", item.subject, message)
 		emailSend("consultas@renting.com.uy", item.subject, message)
 	}
 
