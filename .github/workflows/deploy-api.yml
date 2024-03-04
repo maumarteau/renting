@@ -53,6 +53,6 @@ jobs:
           username: github-deploy
           password: 86t7SB78sa7a123
           dangerous-clean-slate: true
-          local-dir: ./dist/
+          local-dir: api/dist/
           server-dir: /distributions/api/
 
