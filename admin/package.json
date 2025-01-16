@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --port 8070",
+    "serve": "vue-cli-service serve",
     "build": "rimraf rmdir ./dist && vue-cli-service build",
     "deploy": "npm run build && cd ./dist && git init && heroku git:remote -a lestido-renting-admin && git status && git add . && git commit -m 'deploy' && git push heroku master -f"
   },
