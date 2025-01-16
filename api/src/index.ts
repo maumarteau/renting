@@ -1,86 +1,106 @@
-import "reflect-metadata"
-import express from "express"
+// import "reflect-metadata"
+import express, { Application } from "express"
 import { ApolloServer, PubSub } from "apollo-server-express"
 import http from "http"
+import moment from "moment"
+moment.locale("es")
+
+
+import { createConnection, getConnectionOptions } from "typeorm"
+import { patchSelectQueryBuilder } from "typeorm-global-scopes"
+import { emailCheckConnection } from "./utils/email"
+
+// Importamos el framework de funciones de GCP
+const functions = require("@google-cloud/functions-framework")
 
 import typeDefs from "./resolvers/typeDefs"
 import resolvers from "./resolvers/resolvers"
 
-const PORT = process.env.PORT || "3000"
-const app = express()
+// ----------------------------------------------------------------------------
+// 1) Creamos las variables globales que necesitamos
+// ----------------------------------------------------------------------------
+const app: Application = express();
+
 
 const pubsub = new PubSub()
 const server = new ApolloServer({
-	typeDefs,
-	resolvers,
-	subscriptions: "/subscriptions",
-	context: context => {
-		return {
-			...context,
-			pubsub
-		}
-	}
+  typeDefs,
+  resolvers,
+  subscriptions: "/subscriptions",
+  context: (context) => {
+    return {
+      ...context,
+      pubsub,
+    }
+  },
 })
 
-
+// Configuración para permitir JSON grandes, etc.
 app.use(express.json({ limit: "50mb" }))
 app.use(express.urlencoded({ limit: "50mb" }))
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-
-import moment from "moment"
-moment.locale("es")
-require("dotenv").config()
-
-import { createConnection, getConnectionOptions } from "typeorm"
-
-
-import { patchSelectQueryBuilder } from "typeorm-global-scopes"
-
-;import { emailCheckConnection } from "./utils/email"
-(async function () {
-	console.log("Connecting...")
-	patchSelectQueryBuilder()
-	let connectionOptions = await getConnectionOptions()
-	const conn = await createConnection(connectionOptions)
+// Moment y patch de TypeORM
+;(async function () {
+  console.log("Connecting...")
+  patchSelectQueryBuilder()
+  let connectionOptions = await getConnectionOptions()
+  await createConnection(connectionOptions)
+  console.log("TypeORM connected.")
 })()
 
-if (process.env.NODE_ENV == "production") {
-	app.use("/uploads", express.static(__dirname + "/../uploads"))
-	app.use("/assets/brands", express.static(__dirname + "/../assets/brands"))
+// Rutas estáticas según entorno
+if (process.env.NODE_ENV === "production") {
+  app.use("/uploads", express.static(__dirname + "/../uploads"))
+  app.use("/assets/brands", express.static(__dirname + "/../assets/brands"))
 } else {
-	app.use("/uploads", express.static("./uploads"))
-	app.use("/assets/brands", express.static("./assets/brands"))
+  app.use("/uploads", express.static("./uploads"))
+  app.use("/assets/brands", express.static("./assets/brands"))
 }
 
-app.get("/", function (req: any, res: any) {
-	res.send("Hey, what are you trying to see around here?.")
+// Rutas de prueba
+app.get("/", (req, res) => {
+  res.send("Hey, what are you trying to see around here?.")
 })
-app.get("/test", function (req: any, res: any) {
-	res.send("Working OK.")
+app.get("/test", (req, res) => {
+  res.send("Working OK.")
 })
-app.get("/check-email-connection", async function (req: any, res: any) {
-	const isOk = await emailCheckConnection()
-	res.send(isOk)
+app.get("/check-email-connection", async (req, res) => {
+  const isOk = await emailCheckConnection()
+  res.send(isOk)
 })
 
+// ----------------------------------------------------------------------------
+// 2) Función asíncrona para iniciar el servidor Apollo (sin hacer listen())
+// ----------------------------------------------------------------------------
+let isApolloServerInitialized = false
 
 async function startApolloServer() {
-	await server.start()
-	server.applyMiddleware({ app })
+  if (isApolloServerInitialized) return
 
-	const httpServer = http.createServer(app)
-	server.installSubscriptionHandlers(httpServer)
+  await server.start()
+  server.applyMiddleware({ app });
 
-	await new Promise(resolve =>
-		httpServer.listen(PORT, () => {
-			console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`)
-			console.log(`🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`)
-		})
-	)
-	return { server, app, httpServer }
+
+  const httpServer = http.createServer(app)
+  server.installSubscriptionHandlers(httpServer)
+
+  console.log("Apollo Server started. Subscriptions ready at /subscriptions.")
+
+  isApolloServerInitialized = true
 }
 
-startApolloServer()
+// ----------------------------------------------------------------------------
+// 3) Exportamos la función HTTP (nombre "api") para GCP con lazy initialization
+// ----------------------------------------------------------------------------
+functions.http("api", async (req: any, res: any) => {
+	// En la primera invocación se inicializa ApolloServer y todo lo demás.
+	if (!isApolloServerInitialized) {
+	  await startApolloServer()
+	}
+	// Delegamos la llamada a Express
+	app(req, res)
+})
+  
+  

@@ -1,6 +1,7 @@
 {
   "name": "lestido-api",
   "dependencies": {
+    "@google-cloud/functions-framework": "^3.4.5",
     "@graphql-tools/load-files": "^6.5.1",
     "@graphql-tools/merge": "^8.1.2",
     "apollo-server-express": "^2.23.0",
@@ -9,6 +10,7 @@
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "graphql": "^15.5.0",
+    "http": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.32",
@@ -16,6 +18,9 @@
     "nanoid": "^3.1.20",
     "node-thumbnail": "^0.15.0",
     "nodemailer": "^6.4.16",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.2.32",
+    "typeorm-global-scopes": "^0.2.3",
     "utf8": "^3.0.0"
   }
 }
