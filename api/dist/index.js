@@ -43,7 +43,8 @@ app.use(express_1.default.urlencoded({ extended: true }));
         typeorm_global_scopes_1.patchSelectQueryBuilder();
         let connectionOptions = yield typeorm_1.getConnectionOptions();
         yield typeorm_1.createConnection(connectionOptions);
-        console.log("TypeORM connected.");
+        console.log("TypeORM connected");
+        console.log('Server running at http://localhost:3000');
     });
 })();
 if (process.env.NODE_ENV === "production") {

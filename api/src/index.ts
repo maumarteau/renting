@@ -47,7 +47,8 @@ app.use(express.urlencoded({ extended: true }))
   patchSelectQueryBuilder()
   let connectionOptions = await getConnectionOptions()
   await createConnection(connectionOptions)
-  console.log("TypeORM connected.")
+  console.log("TypeORM connected")
+  console.log('Server running at http://localhost:3000')
 })()
 
 // Rutas estáticas según entorno
@@ -101,6 +102,7 @@ functions.http("api", async (req: any, res: any) => {
 	}
 	// Delegamos la llamada a Express
 	app(req, res)
+
 })
   
   

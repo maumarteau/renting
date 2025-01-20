@@ -1,4 +1,20 @@
 
+
+Front en vercel
+API en google cloud project  lestido-renting
+DB Heroku JawsDB
+	
+Host	i2cpbxbi4neiupid.cbetxkdyhwsb.us-east-1.rds.amazonaws.com	
+Username	h471g5bpw2nmy2p3	
+Password	c99qen6cjf8bwgnf	
+Port	3306	
+Database	ngzrhkjkwq6opwb4
+
+
+
+
+
+
 +===================================+
 | New Account Info                  |
 +===================================+
