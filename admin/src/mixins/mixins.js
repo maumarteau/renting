@@ -4,7 +4,7 @@ import Vue from 'vue'
 export default Vue.mixin({
     data() {
         return{
-            API_URL: process.env.VUE_APP_API_URL,
+            API_URL: process.env.VUE_APP_API_URL || 'http://localhost:3000',
         }
     },
     methods: {

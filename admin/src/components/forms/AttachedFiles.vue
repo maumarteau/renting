@@ -56,7 +56,6 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
 import Tinybox from "vue-tinybox"
 
 export default {
@@ -87,7 +86,7 @@ export default {
             invalid:false,
             invalidFormat:false,
             backgroundImage: null,
-            API_URL: process.env.VUE_APP_API_URL,
+            API_URL: process.env.VUE_APP_API_URL || 'http://localhost:3000',
             filetypes: ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pdf', 'zip', 'rar', '7z', 'odt', 'ods', 'ppt', 'pptx'],
             imagetypes: ['gif','png','jpeg','jpg'],
             
@@ -140,39 +139,56 @@ export default {
         },
 
         
-      	upload(event){
+      	async upload(event){
             this.invalidFormat = false
             var input = event.target;
 			if (input.files && input.files[0]) {
                 if( this.isAcceptedFile(input.files[0]) ){
                     
                     this.uploading=true;
-					return this.$apollo.mutate({
-						mutation: gql`mutation ($file:Upload! ){
-							uploadFile(file : $file){
-								id
-                                url
-                                urlThumb
-                                filename
-                                type
-							}
-						}`,
-						variables: {
-							file: input.files[0]
-						}
-					})
-					.then( ({data}) => {
-                        if( !Array.isArray(this.context.model)) this.context.model = []
-                        this.context.model.push(data.uploadFile)
-                        this.$emit('input',this.context.model)
-                        this.uploading=false
-                        return data.uploadFile;
-					})
-					.catch(err => {
+                    
+                    try {
+                        // Crear FormData para enviar el archivo
+                        const formData = new FormData()
+                        formData.append('file', input.files[0])
+                        
+                        // Obtener token de autenticación si existe
+                        const token = localStorage.getItem('token-admin')
+                        const headers = {
+                            'Authorization': token ? `Bearer ${token}` : ''
+                        }
+                        
+                        // Realizar petición REST al endpoint /upload
+                        const response = await fetch(`${this.API_URL}/upload`, {
+                            method: 'POST',
+                            mode: 'cors',
+                            credentials: 'include',
+                            headers: headers,
+                            body: formData
+                        })
+                        
+                        if (!response.ok) {
+                            throw new Error(`Error ${response.status}: ${response.statusText}`)
+                        }
+                        
+                        const result = await response.json()
+                        
+                        if (result.success && result.data) {
+                            if( !Array.isArray(this.context.model)) this.context.model = []
+                            this.context.model.push(result.data)
+                            this.$emit('input',this.context.model)
+                            this.uploading=false
+                            return result.data;
+                        } else {
+                            throw new Error(result.error || 'Error al subir archivo')
+                        }
+                        
+                    } catch (err) {
                         console.log(err)
+                        this.$toast.error(err.message || 'Error al subir archivo')
                         this.uploading=false;
-						return false;
-					});
+                        return false;
+                    }
 				}else{
                     this.invalidFormat = true
                 }	
@@ -337,9 +353,9 @@ export default {
 
 
 .list-thumb{
-    // display: flex;
-    // flex-wrap: wrap;
-    // flex-direction: inherit;
+    /* display: flex;
+    flex-wrap: wrap;
+    flex-direction: inherit; */
 }
 .list-thumb .file{
     flex-direction: column;

@@ -115,6 +115,12 @@
 				>
 					<span>Secciones</span>
 				</router-link>
+				<!-- <router-link
+					to="/products"
+					class="list-group-item list-group-item-action pl-4"
+				>
+					<span>Vehículos usados</span>
+				</router-link> -->
 			</div>
 		</div>
 	</div>
