@@ -1,0 +1,72 @@
+extend type Query {
+  products(
+    take: Int,
+    skip: Int,
+    search: String,
+    status: String,
+    brand: String,
+    model: String,
+    minPrice: Float,
+    maxPrice: Float,
+    year: Int,
+    fuel: String,
+    transmission: String,
+    publicKey: String
+  ): ProductConnection
+  product(id: ID, slug: String): Product 
+  productCheckSlug(slug: String): Product
+}
+
+extend type Mutation {
+  productCreate(data: ProductInput!): Product!
+  productUpdate(id: ID!, data: ProductInput!): Product!
+  productDelete(id: ID!): Product!
+  productToggleStatus(id: ID!, status: String!): Product!
+  productSort(list: [OrderList]): Boolean
+}
+
+type Product {
+  id: ID!
+  title: String!
+  slug: String!
+  description: String!
+  price: Float!
+  gallery: [File]
+  brand: String
+  model: String
+  year: Int
+  mileage: String
+  fuel: String
+  transmission: String
+  color: String
+  contactPhone: String
+  contactEmail: String
+  status: String
+  statusText: String
+  statusClass: String
+  order: Int
+  createdAt: String
+  updatedAt: String
+}
+
+input ProductInput {
+  title: String!
+  description: String!
+  price: Float!
+  gallery: [ID]
+  brand: String
+  model: String
+  year: Int
+  mileage: String
+  fuel: String
+  transmission: String
+  color: String
+  contactPhone: String
+  contactEmail: String
+  status: String
+}
+
+type ProductConnection {
+  pageInfo: PageInfo
+  data: [Product]
+}

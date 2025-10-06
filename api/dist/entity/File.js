@@ -25,6 +25,7 @@ exports.deleteFile = exports.File = void 0;
 const typeorm_1 = require("typeorm");
 const fs_1 = __importDefault(require("fs"));
 const CarCategory_1 = require("./CarCategory");
+const Product_1 = require("./Product");
 let File = class File extends typeorm_1.BaseEntity {
     afterLoad() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -73,6 +74,11 @@ __decorate([
     typeorm_1.JoinColumn({ name: 'carCategoryId', referencedColumnName: 'id' }),
     __metadata("design:type", CarCategory_1.CarCategory)
 ], File.prototype, "carCategory", void 0);
+__decorate([
+    typeorm_1.ManyToOne(() => Product_1.Product, product => product.gallery),
+    typeorm_1.JoinColumn({ name: 'productId', referencedColumnName: 'id' }),
+    __metadata("design:type", Product_1.Product)
+], File.prototype, "product", void 0);
 __decorate([
     typeorm_1.AfterLoad(),
     __metadata("design:type", Function),

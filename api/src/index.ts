@@ -3,6 +3,9 @@ import express, { Application } from "express"
 import { ApolloServer, PubSub } from "apollo-server-express"
 import http from "http"
 import moment from "moment"
+import { graphqlUploadExpress } from "@apollographql/graphql-upload-8-fork"
+import cors from "cors"
+import { uploadFileREST, getFiles, getFile } from "./controllers/uploadController"
 moment.locale("es")
 
 
@@ -21,12 +24,27 @@ import resolvers from "./resolvers/resolvers"
 // ----------------------------------------------------------------------------
 const app: Application = express();
 
+// Configuración de CORS
+app.use(cors({
+	origin: [
+		'http://localhost:8080', // Vue CLI dev server
+		'http://localhost:3000', // API server
+		'http://localhost:8081', // Posible puerto alternativo del admin
+		'https://lestido-renting-admin.herokuapp.com', // Producción admin
+		'https://admin.renting.com.uy', // Producción admin
+		'https://lestido-renting-api.herokuapp.com', // Producción API
+	],
+	credentials: true,
+	methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+	allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+}));
+
 
 const pubsub = new PubSub()
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  subscriptions: "/subscriptions",
+//   subscriptions: "/subscriptions",
   context: (context) => {
     return {
       ...context,
@@ -35,11 +53,18 @@ const server = new ApolloServer({
   },
 })
 
+// Configuración para ruta de upload - usar raw body parser
+app.use('/upload', express.raw({ 
+	type: 'multipart/form-data',
+	limit: '100mb'
+}))
+
 // Configuración para permitir JSON grandes, etc.
 app.use(express.json({ limit: "50mb" }))
-app.use(express.urlencoded({ limit: "50mb" }))
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ limit: "50mb", extended: true }))
+
+// Middleware para manejar uploads de archivos en GraphQL
+app.use('/graphql', graphqlUploadExpress({ maxFileSize: 100000000, maxFiles: 10 }))
 
 // Moment y patch de TypeORM
 ;(async function () {
@@ -71,6 +96,19 @@ app.get("/check-email-connection", async (req, res) => {
   const isOk = await emailCheckConnection()
   res.send(isOk)
 })
+
+// Endpoints REST para upload de archivos
+app.options("/upload", (req, res) => {
+	res.header('Access-Control-Allow-Origin', req.headers.origin || '*')
+	res.header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+	res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With')
+	res.sendStatus(200)
+})
+
+app.post("/upload", uploadFileREST)
+
+app.get("/files", getFiles)
+app.get("/files/:id", getFile)
 
 // ----------------------------------------------------------------------------
 // 2) Función asíncrona para iniciar el servidor Apollo (sin hacer listen())

@@ -1,6 +1,7 @@
 {
   "name": "lestido-api",
   "dependencies": {
+    "@apollographql/graphql-upload-8-fork": "^8.1.3",
     "@google-cloud/functions-framework": "^3.4.5",
     "@graphql-tools/load-files": "^6.5.1",
     "@graphql-tools/merge": "^8.1.2",

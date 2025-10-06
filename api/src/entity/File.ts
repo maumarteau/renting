@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, BaseEntity, ManyToOne, ManyToMany, JoinTable, AfterLoad, JoinColumn } from "typeorm"
 import fs from "fs"
 import { CarCategory } from "./CarCategory"
+import { Product } from "./Product"
 
 @Entity()
 export class File extends BaseEntity {
@@ -35,6 +36,9 @@ export class File extends BaseEntity {
 	@JoinColumn({name: 'carCategoryId', referencedColumnName: 'id'})
   	carCategory: CarCategory
 
+	@ManyToOne(() => Product, product => product.gallery)
+	@JoinColumn({name: 'productId', referencedColumnName: 'id'})
+  	product: Product
 	
 	@AfterLoad()
 	async afterLoad() {
