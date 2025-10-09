@@ -23,6 +23,7 @@
 											<b-nav>
 												<b-nav-item :to="`/`" active>Inicio </b-nav-item>
 												<b-nav-item :to="`/flota`">Flota</b-nav-item>
+												<b-nav-item :to="`/venta-de-usados`">Vehículos en venta</b-nav-item>
 												<b-nav-item :to="`/servicios-adicionales`">Adicionales</b-nav-item>
 												<b-nav-item :to="`/agenda-mantenimiento`">Mantenimiento</b-nav-item>
 												<b-nav-item :to="`/empresa`">Empresa</b-nav-item>
@@ -51,6 +52,7 @@
 				<b-nav vertical class="mt-3">
 					<b-nav-item to="/" class="btn-primary" active>Inicio </b-nav-item>
 					<b-nav-item to="/flota" class="btn-primary">Flota</b-nav-item>
+					<b-nav-item to="/venta-de-usados" class="btn-primary">Vehículos en venta</b-nav-item>
 					<b-nav-item to="/servicios-adicionales" class="btn-primary">Adicionales</b-nav-item>
 					<b-nav-item to="/empresa" class="btn-primary">Empresa</b-nav-item>
 

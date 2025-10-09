@@ -4,7 +4,7 @@
 			<div class="content flex-grow-2 mt-4">
 				<div class="content-block">
 					<h1 class="title mb-5 mt-3">
-						<strong>Venta de Autos Usados</strong>
+						<strong>Vehículos en venta</strong>
 					</h1>
 					<p class="lead-text mt-2">
 						Encontrá tu próximo vehículo en nuestra selección de autos usados de calidad.<br />
@@ -67,7 +67,7 @@
 	padding: 18px;
 }
 .block .content .content-block {
-	max-width: 500px;
+	/* max-width: 500px; */
 	height: fit-content;
 }
 

@@ -16,6 +16,7 @@
 							<div class="col-12 col-md-4  order-md-1 order-lg-2 mb-5">
 								<router-link tag="a" :to="`/`"> Inicio </router-link><br />
 								<router-link tag="a" :to="`/flota`"> Flota </router-link><br />
+								<router-link tag="a" :to="`/venta-de-usados`"> Vehículos en venta </router-link><br />
 								<router-link tag="a" :to="`/servicios-adicionales`"> Adicionales </router-link><br />
 								<router-link tag="a" :to="`/agenda-mantenimiento`"> Mantenimiento </router-link><br />
 								<router-link tag="a" :to="`/empresa`"> Empresa </router-link><br />

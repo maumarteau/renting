@@ -5,7 +5,7 @@
 				<div class="row">
 					<div class="col">
 						<h1 class="title text-center mb-2">
-							Venta de <strong>Autos Usados</strong>
+							Vehículos <strong>en venta</strong>
 						</h1>
 						<p class="lead text-center mt-3 mb-4">
 							Descubre nuestra selección de vehículos de calidad
