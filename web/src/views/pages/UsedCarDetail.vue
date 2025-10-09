@@ -2,10 +2,7 @@
 	<div>
 		<Layout :navFixed="false" :loading="loading">
 			<div class="car-head" v-if="item">
-				<!-- Badge de VENDIDO -->
-				<div class="badge badge-sold" v-if="item.status === 'SOLD_AND_PUBLISHED'">
-					VENDIDO
-				</div>
+				
 
 				<div 
 					v-if="item.image" 
@@ -40,6 +37,9 @@
 					</div>
 
 					<div class="d-flex flex-wrap">
+						<div class="mt-3 ml-2 badge badge-sold" v-if="item.status === 'SOLD_AND_PUBLISHED'">
+							VENDIDO
+						</div>
 						<router-link
 							v-if="item.status !== 'SOLD_AND_PUBLISHED'"
 							tag="a"
@@ -248,9 +248,6 @@ export default {
 
 /* Badge de VENDIDO */
 .badge-sold {
-	position: absolute;
-	top: 20px;
-	right: 20px;
 	background-color: #dc3545;
 	color: #fff;
 	border-radius: 20px;
