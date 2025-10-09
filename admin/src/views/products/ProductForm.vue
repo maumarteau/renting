@@ -19,7 +19,29 @@
 					<div class="col-12 col-md-4">
 						<div class="card ">
 							<div class="card-body">
+								<FormulateInput
+									label="Imagen Listado"
+									name="image"
+									type="file"
+									accept="images"
+									listStyle="thumb"
+									:displayBlock="true"
+									validation-name="Imagen"
+									validation="required"
+									:help="`La imagen debe ser de 591px x 422px con fondo transparente`"
+								/>
+								
 								<FormulateInput label="Título" name="title" validation-name="Título" validation="required" />
+
+								<FormulateInput
+									label="Precio (USD)"
+									type="number"
+									name="price"
+									validation-name="Precio"
+									validation="required|min:1"
+									step="0.01"
+									min="0"
+								/>
 
 								<FormulateInput
 									label="Estado"
@@ -28,8 +50,79 @@
 									:options="{
 										ACTIVE: 'Activo',
 										INACTIVE: 'Inactivo',
-										SOLD: 'Vendido',
+										SOLD_AND_PUBLISHED: 'Vendido y publicado',
+										SOLD: 'Vendido y oculto',
 									}"
+								/>
+
+								
+
+								<FormulateInput
+									label="Marca"
+									name="brand"
+									placeholder="Ej: Toyota, Volkswagen, Ford..."
+									validation-name="Marca"
+									validation="required"
+								/>
+
+								<FormulateInput
+									label="Modelo"
+									name="model"
+									placeholder="Ej: Corolla, Golf, Focus..."
+									validation-name="Modelo"
+									validation="required"
+								/>
+
+								<FormulateInput
+									label="Año"
+									type="number"
+									name="year"
+									:min="1990"
+									:max="new Date().getFullYear() + 1"
+									validation-name="Año"
+									validation="required"
+								/>
+
+								<FormulateInput
+									label="Kilometraje"
+									name="mileage"
+									placeholder="Ej: 50,000 km"
+									validation-name="Kilometraje"
+									validation="required"
+								/>
+
+								<FormulateInput
+									label="Combustible"
+									name="fuel"
+									type="select"
+									:options="{
+										gasoline: 'Nafta',
+										diesel: 'Gasoil',
+										hybrid: 'Híbrido',
+										electric: 'Eléctrico',
+									}"
+									validation-name="Combustible"
+									validation="required"
+								/>
+
+								<FormulateInput
+									label="Transmisión"
+									name="transmission"
+									type="select"
+									:options="{
+										manual: 'Manual',
+										automatic: 'Automática',
+									}"
+									validation-name="Transmisión"
+									validation="required"
+								/>
+
+								<FormulateInput
+									label="Color"
+									name="color"
+									placeholder="Ej: Blanco, Negro, Azul..."
+									validation-name="Color"
+									validation="required"
 								/>
 							</div>
 						</div>
@@ -52,91 +145,13 @@
 													:showMenuBar="false"
 												/>
 											</div>
-
-											<div class="col-12 col-md-6 mt-3">
-												<FormulateInput
-													label="Precio (USD)"
-													type="number"
-													name="price"
-													validation-name="Precio"
-													validation="required|min:1"
-													step="0.01"
-													min="0"
-												/>
-											</div>
-										</div>
-									</b-tab>
-
-									<b-tab title="Datos del Vehículo">
-										<div class="row row-xs">
-											<div class="col-12 col-md-6">
-												<FormulateInput
-													label="Marca"
-													name="brand"
-													placeholder="Ej: Toyota, Volkswagen, Ford..."
-												/>
-											</div>
-											<div class="col-12 col-md-6">
-												<FormulateInput
-													label="Modelo"
-													name="model"
-													placeholder="Ej: Corolla, Golf, Focus..."
-												/>
-											</div>
-											<div class="col-12 col-md-6 mt-3">
-												<FormulateInput
-													label="Año"
-													type="number"
-													name="year"
-													:min="1990"
-													:max="new Date().getFullYear() + 1"
-												/>
-											</div>
-											<div class="col-12 col-md-6 mt-3">
-												<FormulateInput
-													label="Kilometraje"
-													name="mileage"
-													placeholder="Ej: 50,000 km"
-												/>
-											</div>
-											<div class="col-12 col-md-6 mt-3">
-												<FormulateInput
-													label="Combustible"
-													name="fuel"
-													type="select"
-													:options="{
-														gasoline: 'Nafta',
-														diesel: 'Gasoil',
-														hybrid: 'Híbrido',
-														electric: 'Eléctrico',
-													}"
-												/>
-											</div>
-											<div class="col-12 col-md-6 mt-3">
-												<FormulateInput
-													label="Transmisión"
-													name="transmission"
-													type="select"
-													:options="{
-														manual: 'Manual',
-														automatic: 'Automática',
-													}"
-												/>
-											</div>
-											<div class="col-12 col-md-6 mt-3">
-												<FormulateInput
-													label="Color"
-													name="color"
-													placeholder="Ej: Blanco, Negro, Azul..."
-												/>
-											</div>
 										</div>
 									</b-tab>
 
 									<b-tab title="Galería">
 										<FormulateInput
 											label="Fotos del vehículo"
-											name="files"
+											name="gallery"
 											type="file"
 											accept="images"
 											listStyle="thumb"
@@ -183,7 +198,8 @@ export default {
 				title: null,
 				description: null,
 				price: null,
-				files: [],
+				gallery: [],
+				image: null,
 				brand: null,
 				model: null,
 				year: null,
@@ -213,12 +229,15 @@ export default {
 		async save() {
 			this.saving = true
 
+			console.log(this.form)
+
 			let dataInput = {
 				title: this.form.title,
 				description: this.form.description,
 				price: this.form.price ? parseFloat(this.form.price) : 0,
-				files: this.form.files.length > 0 ? this.form.files.map((f) => (f ? f.id : null)) : [],
-				brand: this.form.brand,
+				gallery: this.form.gallery.length > 0 ? this.form.gallery.map((f) => (f ? f.id : null)) : [],
+				image: this.form.image ? this.form.image.id : null,
+				brand: this.form.brand,	
 				model: this.form.model,
 				year: this.form.year ? parseInt(this.form.year) : null,
 				mileage: this.form.mileage,
@@ -227,6 +246,7 @@ export default {
 				color: this.form.color,
 				status: this.form.status,
 			}
+			console.log(dataInput)
 
 			if (this.action == 'create') {
 				await this.create(dataInput)
@@ -299,7 +319,14 @@ export default {
 								slug
 								description
 								price
-								files {
+								gallery {
+									id
+									type
+									filename
+									url
+									urlThumb
+								}
+								image {
 									id
 									type
 									filename
@@ -323,7 +350,9 @@ export default {
 					fetchPolicy: 'network-only',
 				})
 				.then(({ data }) => {
+					console.log(data.product)
 					this.form = data.product
+					
 				})
 				.catch(() => {
 					this.$toast.error('El vehículo que desea editar no existe')

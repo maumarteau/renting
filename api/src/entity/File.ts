@@ -39,6 +39,10 @@ export class File extends BaseEntity {
 	@ManyToOne(() => Product, product => product.gallery)
 	@JoinColumn({name: 'productId', referencedColumnName: 'id'})
   	product: Product
+
+	@ManyToOne(() => Product, product => product.image)
+	@JoinColumn({name: 'imageId', referencedColumnName: 'id'})
+  	productImage: Product
 	
 	@AfterLoad()
 	async afterLoad() {

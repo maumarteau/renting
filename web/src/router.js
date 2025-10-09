@@ -43,6 +43,16 @@ const baseRoutes = [
 		component: () => import('@/views/pages/CarDetail'),
 	},
 	{
+		path: '/venta-de-usados',
+		name: 'UsedCars',
+		component: () => import('@/views/pages/UsedCars'),
+	},
+	{
+		path: '/venta-de-usados/:slug',
+		name: 'UsedCarDetail',
+		component: () => import('@/views/pages/UsedCarDetail'),
+	},
+	{
 		path: '/:slug',
 		name: 'Section',
 		component: () => import('@/views/pages/Section'),

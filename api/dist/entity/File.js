@@ -80,6 +80,11 @@ __decorate([
     __metadata("design:type", Product_1.Product)
 ], File.prototype, "product", void 0);
 __decorate([
+    typeorm_1.ManyToOne(() => Product_1.Product, product => product.image),
+    typeorm_1.JoinColumn({ name: 'imageId', referencedColumnName: 'id' }),
+    __metadata("design:type", Product_1.Product)
+], File.prototype, "productImage", void 0);
+__decorate([
     typeorm_1.AfterLoad(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

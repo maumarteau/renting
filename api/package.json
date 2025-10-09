@@ -6,7 +6,7 @@
 		"seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
 		"seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
 		"dev:stage": "npx @google-cloud/functions-framework --target=api",
-		"dev": "cd dist && env-cmd -f ../.env.production npx functions-framework --target=api --signature-type=http --port=3000",
+		"dev": "cd dist && lsof -ti:3000 | xargs kill -9 &&  env-cmd -f ../.env.production npx functions-framework --target=api --signature-type=http --port=3000",
 		"deploy": "node deploy.js"
 	},
 	"resolutions": {

@@ -1,10 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, BaseEntity, OneToMany, BeforeUpdate, BeforeInsert, createQueryBuilder, AfterLoad } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, BaseEntity, OneToMany, OneToOne, JoinColumn, BeforeUpdate, BeforeInsert, createQueryBuilder, AfterLoad } from 'typeorm'
 import { File } from './File'
 
 export enum ProductStatus {
 	ACTIVE = "ACTIVE",
 	INACTIVE = "INACTIVE",
-	SOLD = "SOLD"
+	SOLD = "SOLD",
+    SOLD_AND_PUBLISHED = "SOLD_AND_PUBLISHED"
 }
 
 @Entity({
@@ -31,6 +32,10 @@ export class Product extends BaseEntity{
 
     @OneToMany(type => File, file => file.product)
     gallery: File[]
+
+    @OneToOne(() => File, { nullable: true })
+    @JoinColumn({ name: 'imageId' })
+    image: File
 
     @Column({type: 'varchar', length: 100, nullable: true})
     brand: string
@@ -80,6 +85,10 @@ export class Product extends BaseEntity{
 
     @DeleteDateColumn({ type: 'datetime' })
     deletedAt: Date; 
+
+
+    transmissionText: String
+    fuelText: String
     
     @BeforeUpdate()
     @BeforeInsert()
@@ -108,6 +117,12 @@ export class Product extends BaseEntity{
 			this.statusHelp = status.help
 			this.statusClass = status.class
 		}
+        console.log(this.transmission)
+        console.log(this.fuel)
+		
+        this.transmissionText = this.transmission == 'manual' ? 'Manual' : 'Automático'
+        this.fuelText = this.fuel == 'gasoline' ? 'Nafta' : this.fuel == 'diesel' ? 'Gasoil' : this.fuel == 'hybrid' ? 'Híbrido' : this.fuel == 'electric' ? 'Eléctrico' : this.fuel
+		
     }
 }
 
@@ -120,6 +135,9 @@ export function getStatus(status: ProductStatus) {
 	}
 	if (status == ProductStatus.SOLD) {
 		return { text: "Vendido", help: "Vehículo vendido", class: "danger" }
+	}
+	if (status == ProductStatus.SOLD_AND_PUBLISHED) {
+		return { text: "Vendido y Publicado", help: "Vehículo vendido pero visible", class: "info" }
 	}
 	return false
 }

@@ -21,16 +21,6 @@ export default [
 	},
 	{
 		path: '/products/:id',
-		name: 'ProductDetail',
-		meta: {
-			requiresAuth: true,
-			section: 'products',
-		},
-		component: () =>
-			import(/* webpackChunkName: "ProductDetail" */ './ProductDetail'),
-	},
-	{
-		path: '/products/:id/edit',
 		name: 'ProductEdit',
 		meta: {
 			requiresAuth: true,

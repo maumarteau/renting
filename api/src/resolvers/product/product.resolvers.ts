@@ -51,14 +51,15 @@ const Query = {
 			query.andWhere("l.transmission = :transmission", { transmission: args.transmission})
 		}
 		
-		query.leftJoinAndSelect("l.files", "files")
+		query.leftJoinAndSelect("l.image", "image")
 		const [items, totalCount] = await query.getManyAndCount()
 		return { data: items, pageInfo: { totalItems: totalCount } }
 	},
 
 	product: async (_: any, args: any, ctx: any) => {
 		let where = args.slug ? { slug: args.slug } : { id: args.id }
-		const item = await findOne(ProductEntity, ctx, undefined, { where, relations: ["files"] })
+		const item = await findOne(ProductEntity, ctx, undefined, { where, relations: ["gallery", "image"] })
+		console.log("item", item)
 		if (!item) throw new Error("Product not found")
 		return item
 	},

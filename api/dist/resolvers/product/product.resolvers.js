@@ -51,13 +51,14 @@ const Query = {
         if (args.transmission) {
             query.andWhere("l.transmission = :transmission", { transmission: args.transmission });
         }
-        query.leftJoinAndSelect("l.files", "files");
+        query.leftJoinAndSelect("l.image", "image");
         const [items, totalCount] = yield query.getManyAndCount();
         return { data: items, pageInfo: { totalItems: totalCount } };
     }),
     product: (_, args, ctx) => __awaiter(void 0, void 0, void 0, function* () {
         let where = args.slug ? { slug: args.slug } : { id: args.id };
-        const item = yield utils_1.findOne(Product_1.Product, ctx, undefined, { where, relations: ["files"] });
+        const item = yield utils_1.findOne(Product_1.Product, ctx, undefined, { where, relations: ["gallery", "image"] });
+        console.log("item", item);
         if (!item)
             throw new Error("Product not found");
         return item;

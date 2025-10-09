@@ -29,35 +29,9 @@
 								<option value="">Todos los estados</option>
 								<option value="ACTIVE">Activo</option>
 								<option value="INACTIVE">Inactivo</option>
-								<option value="SOLD">Vendido</option>
+								<option value="SOLD_AND_PUBLISHED">Vendido y publicado</option>
+								<option value="SOLD">Vendido oculto</option>
 							</select>
-						</div>
-						<div class="col-md-2">
-							<input
-								type="text"
-								class="form-control"
-								placeholder="Marca"
-								v-model="filters.brand"
-								@input="debounceSearch"
-							/>
-						</div>
-						<div class="col-md-2">
-							<input
-								type="number"
-								class="form-control"
-								placeholder="Precio min"
-								v-model="filters.minPrice"
-								@input="debounceSearch"
-							/>
-						</div>
-						<div class="col-md-2">
-							<input
-								type="number"
-								class="form-control"
-								placeholder="Precio max"
-								v-model="filters.maxPrice"
-								@input="debounceSearch"
-							/>
 						</div>
 						<div class="col-md-1">
 							<button class="btn btn-secondary" @click="clearFilters">Limpiar</button>
@@ -98,14 +72,13 @@
 							<td>
 								<div class="d-flex align-items-center">
 									<img
-										v-if="item.files && item.files.length > 0"
-										:src="item.files[0].urlThumb"
+										v-if="item.image"
+										:src="item.image.urlThumb"
 										:alt="item.title"
 										class="product-thumb mr-3"
 									/>
 									<div>
 										<strong>{{ item.title }}</strong>
-										<div class="text-muted small">{{ item.slug }}</div>
 									</div>
 								</div>
 							</td>
@@ -135,23 +108,37 @@
 									<span>{{ item.statusText }}</span>
 								</span>
 							</td>
-							<td>
-								<div class="btn-group" role="group">
+							<td class="text-right">
+								<b-dropdown
+									no-caret
+									right
+									v-b-tooltip.hover
+									title="Mas acciones"
+									v-b-tooltip.left
+								>
+									<template
+										v-slot:button-content
+										v-if="item.loading"
+										><i class="icon icon-load-c spin"></i
+									></template>
+									<template v-slot:button-content v-else
+										><i class="icon icon-dot-3"></i
+									></template>
 									<router-link
-										:to="`/products/${item.id}/edit`"
-										class="btn btn-sm btn-outline-primary"
-										@click.stop
+										tag="b-dropdown-item"
+										:to="`/products/${item.id}`"
+										>Editar</router-link
 									>
-										<i class="icon icon-edit"></i>
-									</router-link>
-									<button
-										class="btn btn-sm btn-outline-danger"
-										@click.stop="deletePrompt(item)"
+									<b-dropdown-divider></b-dropdown-divider>
+									<b-dropdown-item
+										@click="deletePrompt(item)"
+										class="delete-item"
+										><i class="icon icon-trashcan"></i>
+										Eliminar</b-dropdown-item
 									>
-										<i class="icon icon-trashcan"></i>
-									</button>
-								</div>
+								</b-dropdown>
 							</td>
+							
 						</router-link>
 					</draggable>
 
@@ -221,7 +208,7 @@ export default {
 									status
 									statusText
 									statusClass
-									files {
+									image {
 										id
 										url
 										urlThumb

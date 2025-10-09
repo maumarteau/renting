@@ -26,6 +26,7 @@ var ProductStatus;
     ProductStatus["ACTIVE"] = "ACTIVE";
     ProductStatus["INACTIVE"] = "INACTIVE";
     ProductStatus["SOLD"] = "SOLD";
+    ProductStatus["SOLD_AND_PUBLISHED"] = "SOLD_AND_PUBLISHED";
 })(ProductStatus = exports.ProductStatus || (exports.ProductStatus = {}));
 let Product = class Product extends typeorm_1.BaseEntity {
     constructor() {
@@ -52,6 +53,10 @@ let Product = class Product extends typeorm_1.BaseEntity {
                 this.statusHelp = status.help;
                 this.statusClass = status.class;
             }
+            console.log(this.transmission);
+            console.log(this.fuel);
+            this.transmissionText = this.transmission == 'manual' ? 'Manual' : 'Automático';
+            this.fuelText = this.fuel == 'gasoline' ? 'Nafta' : this.fuel == 'diesel' ? 'Gasoil' : this.fuel == 'hybrid' ? 'Híbrido' : this.fuel == 'electric' ? 'Eléctrico' : this.fuel;
         });
     }
 };
@@ -79,6 +84,11 @@ __decorate([
     typeorm_1.OneToMany(type => File_1.File, file => file.product),
     __metadata("design:type", Array)
 ], Product.prototype, "gallery", void 0);
+__decorate([
+    typeorm_1.OneToOne(() => File_1.File, { nullable: true }),
+    typeorm_1.JoinColumn({ name: 'imageId' }),
+    __metadata("design:type", File_1.File)
+], Product.prototype, "image", void 0);
 __decorate([
     typeorm_1.Column({ type: 'varchar', length: 100, nullable: true }),
     __metadata("design:type", String)
@@ -171,6 +181,9 @@ function getStatus(status) {
     }
     if (status == ProductStatus.SOLD) {
         return { text: "Vendido", help: "Vehículo vendido", class: "danger" };
+    }
+    if (status == ProductStatus.SOLD_AND_PUBLISHED) {
+        return { text: "Vendido y Publicado", help: "Vehículo vendido pero visible", class: "info" };
     }
     return false;
 }

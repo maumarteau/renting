@@ -8,17 +8,27 @@ import { File } from "../entity/File"
 export async function productCreate(data: Partial<Product>, ctx?: any): Promise<Product> {
 	console.log("productCreate")
 	console.log("data.gallery", data.gallery)
+	console.log("data.image", data.image)
 	
-	let files:any = []
+	let galleryFiles:any = []
 	if (data.gallery) {
 		for (const f of data.gallery) {
 			const file = await File.findOne(f)
 			console.log('file',file)
-			if(file) files.push(file)
+			if(file) galleryFiles.push(file)
 		}
-		data.gallery = files
+		data.gallery = galleryFiles
 	}
 	console.log("data.gallery", data.gallery)
+
+	if (data.image) {
+		const file = await File.findOne(data.image)
+		console.log('image file',file)
+		if (file) {
+			data.image = file
+		}
+	}
+	console.log("data.image", data.image)
 
 	const result: Product = await Product.create(data).save()
 	return result
@@ -32,16 +42,27 @@ export async function productUpdate(id: Product["id"], data: Partial<Product>, c
 	console.log("productUpdate")
 
 	console.log('data', data.gallery)
+	console.log('data.image', data.image)
 	
-	const item: Product | undefined = await Product.findOne(id,{ relations:['files']})
+	const item: Product | undefined = await Product.findOne(id,{ relations:['gallery', 'image']})
 	if (!item) throw new Error("Product not found")
 
 	if (data.gallery) {
 		item.gallery = []
 		data.gallery.forEach( async (f)  => {
 			const file = await File.findOne(f)
-			if(file) item.gallery.push(file)
+			if(file) {
+				item.gallery.push(file)
+			}
 		});
+	}
+
+	if (data.image) {
+		const file = await File.findOne(data.image)
+		console.log('image file',file)
+		if (file) {
+			item.image = file
+		}
 	}
 	
 	const result: Product = await Product.merge(item, data).save()

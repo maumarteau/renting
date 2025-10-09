@@ -33,7 +33,12 @@ app.use(cors_1.default({
         'http://localhost:3000',
         'http://localhost:8081',
         'https://lestido-renting-admin.herokuapp.com',
-        'https://lestido-renting-api.herokuapp.com'
+        'https://admin.renting.com.uy',
+        'https://lestido-renting-api.herokuapp.com',
+        'https://renting.com.uy',
+        'https://www.renting.com.uy',
+        'https://renting.uy',
+        'https://www.renting.uy',
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],

@@ -32,12 +32,15 @@ type Product {
   description: String!
   price: Float!
   gallery: [File]
+  image: File
   brand: String
   model: String
   year: Int
   mileage: String
   fuel: String
   transmission: String
+  fuelText: String
+  transmissionText: String
   color: String
   contactPhone: String
   contactEmail: String
@@ -54,6 +57,7 @@ input ProductInput {
   description: String!
   price: Float!
   gallery: [ID]
+  image: ID
   brand: String
   model: String
   year: Int

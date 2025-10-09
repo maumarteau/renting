@@ -42,21 +42,29 @@
 				</div>
 			</div>
 
-			<div class="container">
-				<div class="row">
-					<div class="col">
-						<HomeMaintenance />
-					</div>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<HomeUsedCars />
 				</div>
 			</div>
+		</div>
 
-			<div class="container">
-				<div class="row">
-					<div class="col">
-						<DrivingTips />
-					</div>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<HomeMaintenance />
 				</div>
 			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<DrivingTips />
+				</div>
+			</div>
+		</div>
 		</Layout>
 	</div>
 </template>
@@ -67,6 +75,7 @@ import HomeSlider from '@/views/home/HomeSlider'
 import HomeBrandsAvailable from '@/views/home/HomeBrandsAvailable'
 import HomeOportunities from '@/views/home/HomeOportunities'
 import HomeMaintenance from '@/views/home/HomeMaintenance'
+import HomeUsedCars from '@/views/home/HomeUsedCars'
 import HomeSections from '@/views/home/HomeSections'
 import DrivingTips from '@/views/home/DrivingTips'
 import HomeContact from '@/views/home/HomeContact'
@@ -79,6 +88,7 @@ export default {
 		HomeBrandsAvailable,
 		HomeOportunities,
 		HomeMaintenance,
+		HomeUsedCars,
 		HomeSections,
 		DrivingTips,
 		HomeContact,
@@ -136,9 +146,6 @@ export default {
 @media (min-width: 991px) {
 	.block {
 		flex-direction: row;
-	}
-
-	.block-1 {
 	}
 }
 

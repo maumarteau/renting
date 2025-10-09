@@ -33,6 +33,10 @@ app.use(cors({
 		'https://lestido-renting-admin.herokuapp.com', // Producción admin
 		'https://admin.renting.com.uy', // Producción admin
 		'https://lestido-renting-api.herokuapp.com', // Producción API
+    'https://renting.com.uy', // Producción API
+    'https://www.renting.com.uy', // Producción API
+    'https://renting.uy', // Producción API
+    'https://www.renting.uy', // Producción API
 	],
 	credentials: true,
 	methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],

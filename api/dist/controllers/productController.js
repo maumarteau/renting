@@ -16,17 +16,26 @@ function productCreate(data, ctx) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("productCreate");
         console.log("data.gallery", data.gallery);
-        let files = [];
+        console.log("data.image", data.image);
+        let galleryFiles = [];
         if (data.gallery) {
             for (const f of data.gallery) {
                 const file = yield File_1.File.findOne(f);
                 console.log('file', file);
                 if (file)
-                    files.push(file);
+                    galleryFiles.push(file);
             }
-            data.gallery = files;
+            data.gallery = galleryFiles;
         }
         console.log("data.gallery", data.gallery);
+        if (data.image) {
+            const file = yield File_1.File.findOne(data.image);
+            console.log('image file', file);
+            if (file) {
+                data.image = file;
+            }
+        }
+        console.log("data.image", data.image);
         const result = yield Product_1.Product.create(data).save();
         return result;
     });
@@ -36,16 +45,25 @@ function productUpdate(id, data, ctx) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("productUpdate");
         console.log('data', data.gallery);
-        const item = yield Product_1.Product.findOne(id, { relations: ['files'] });
+        console.log('data.image', data.image);
+        const item = yield Product_1.Product.findOne(id, { relations: ['gallery', 'image'] });
         if (!item)
             throw new Error("Product not found");
         if (data.gallery) {
             item.gallery = [];
             data.gallery.forEach((f) => __awaiter(this, void 0, void 0, function* () {
                 const file = yield File_1.File.findOne(f);
-                if (file)
+                if (file) {
                     item.gallery.push(file);
+                }
             }));
+        }
+        if (data.image) {
+            const file = yield File_1.File.findOne(data.image);
+            console.log('image file', file);
+            if (file) {
+                item.image = file;
+            }
         }
         const result = yield Product_1.Product.merge(item, data).save();
         return result;

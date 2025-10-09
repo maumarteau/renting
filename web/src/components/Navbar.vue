@@ -16,7 +16,7 @@
 								<div class="">
 									<div class="d-flex align-items-center justify-content-between">
 										<router-link tag="a" :to="`/`">
-											<img src="@/assets/logo.svg" alt="" class="logo" />
+											<img src="@/assets/logo.png" alt="" class="logo" />
 										</router-link>
 
 										<div class="only-desktop">
@@ -128,7 +128,7 @@ export default {
 .navbar .logo {
 	max-width: 112px;
 	width: 100%;
-	margin: 6px 6px;
+	margin: 10px 6px;
 }
 
 .nav-link {
